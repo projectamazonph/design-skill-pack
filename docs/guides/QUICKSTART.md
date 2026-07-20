@@ -1,64 +1,104 @@
 # Quick Start Guide
 
-## Install
+## One-Time Setup
+
+Clone or copy the pack into your project:
 
 ```bash
-# From Codex marketplace
-codex plugin install design-skill-pack
-
-# Or from local checkout
-codex plugin install /path/to/design-skill-pack
+git clone <repo-url> design-skill-pack
+# Or just copy the skills/ directory into your project
+cp -r design-skill-pack/skills/ my-project/skills/
 ```
 
 ## Invoke a Skill
 
-In your Codex prompt, reference the plugin and skill:
+Tell your AI agent to load a skill file and apply it:
+
+**Examples:**
 
 ```
-@Design Skill Pack premium
+Read skills/premium.md and apply its design system to my project.
 ```
 
-Or for a specific task:
+```
+Read skills/hallmark.md. Do a hallmark redesign of src/app/landing/page.tsx — audit, pick a theme, restructure the visual layer.
+```
 
 ```
-@Design Skill Pack hallmark redesign src/components/Hero.tsx
+Read skills/design-system-master.md and recommend the right design direction for my SaaS dashboard.
 ```
 
 ## Common Workflows
 
 ### 1. Redesign an Existing Page
+Tell your agent:
 ```
-@Design Skill Pack hallmark redesign src/app/landing/page.tsx
+Read skills/hallmark.md. Redesign src/app/landing/page.tsx:
+- Audit the current design
+- Pick one of the 20 themes
+- Restructure the visual layer
+- Apply tokens, layout, motion
+- QA against the checklist
 ```
-This audits the current design, picks a theme, and restructures the visual layer.
 
 ### 2. Add Premium Polish
 ```
-@Design Skill Pack premium
-@Design Skill Pack beautiful-shadows
-@Design Skill Pack animation-on-scroll
+Read skills/premium.md. Apply premium design tokens to the entire app:
+- Update CSS custom properties
+- Refine spacing and typography
+- Apply beautiful-shadows to cards and panels
+- Add smooth transitions with custom easings
 ```
 
-### 3. Build a Landing Page From Scratch
+### 3. Build a Landing Page from Scratch
 ```
-@Design Skill Pack design-system-master
+Read skills/design-system-master.md and skills/landing-page.md.
+Follow the orchestrator to pick the right aesthetic, then use landing-page.md for structure.
 ```
-The orchestrator reads your project type and picks the best skill combo.
 
 ### 4. Design a Pricing Page
 ```
-@Design Skill Pack pricing-page
-@Design Skill Pack premium
+Read skills/pricing-page.md for the structure and conversion patterns.
+Read skills/premium.md for the visual design tokens.
 ```
 
 ### 5. Audit Design Quality
 ```
-@Design Skill Pack styleseed-design-review
+Read skills/styleseed-design-review.md.
+Review my UI components against its criteria and return a punch list.
+```
+
+### 6. Study an Existing Design
+If you have the hallmark skill:
+```
+Read skills/hallmark.md and use its 'study' mode on this URL: https://example.com
+Extract the design DNA — macrostructure, archetypes, type pairing, color anchor.
+```
+
+## Agent-Specific Tips
+
+### Claude
+Claude excels at following structured Markdown instructions. Reference the skill file explicitly:
+```
+Attached is skills/premium.md. Read it fully and apply every section in order.
+```
+
+### ChatGPT / GPT
+GPT works well with sequential instructions. Paste skill content or reference a file:
+```
+I'm sharing a design skill file. Read it and apply the design system to my project step by step.
+```
+
+### Copilot / Cursor
+Use the workspace context:
+```
+@workspace Read skills/design-system-master.md and tell me which skill to use for my project.
+Then read that skill and apply it.
 ```
 
 ## Tips
 
 - **Combine skills**: Layer utility skills (beautiful-shadows, staggered-word-reveal) on top of design system skills (premium, editorial)
 - **Use the orchestrator**: When unsure, `design-system-master` is the safest starting point
-- **Override dials**: For `design-taste-frontend`, set explicit DESIGN_VARIANCE, MOTION_INTENSITY, VISUAL_DENSITY values
-- **Study existing designs**: Use `hallmark study <URL>` to extract design DNA from any page
+- **Override dials**: For `design-taste-frontend` skills, set explicit DESIGN_VARIANCE, MOTION_INTENSITY, VISUAL_DENSITY values
+- **Quality gates**: Always ask the agent to run the QA checklist at the end

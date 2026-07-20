@@ -1,39 +1,44 @@
 # Design Skill Pack 🎨
 
-> **20+ premium design skills for Codex** — bundled into one plugin with a master orchestrator that auto-selects the right design direction for your project.
+> **20+ opinionated design skills for any AI coding agent** — bundled into one portable pack with a master orchestrator that auto-selects the right design direction for your project.
 
-[![Plugin Version](https://img.shields.io/badge/version-1.0.0-blue)](.codex-plugin/plugin.json)
-[![Codex](https://img.shields.io/badge/Codex-Plugin-ff9900)](https://github.com/openai/codex)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](.)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ---
 
-## Quick Start
+## What This Is
 
-```bash
-# Install the plugin
-codex plugin install design-skill-pack
+A collection of **23 structured design skills** that any AI agent can use to produce premium, non-template UIs. Each skill is a self-contained Markdown file with:
 
-# Or via Codex UI: Plugins → Design Skill Pack → Install
-
-# Use the master orchestrator
-@Design Skill Pack design-system-master
-```
-
-**No dependencies.** Just install and invoke.
+- **Design tokens** — CSS variables for colors, typography, spacing, shadows, motion
+- **Anti-patterns** — exactly what NOT to do (banned fonts, shadows, layouts)
+- **Layout archetypes** — structural patterns (bento, editorial, split-screen, cascade)
+- **Component rules** — anatomy, states, variants, responsive behavior
+- **Motion guidelines** — animation specs, easing curves, reduced-motion fallbacks
+- **Quality gates** — testable acceptance criteria
 
 ---
 
 ## Why This Exists
 
-LLMs default to the same patterns — purple gradients, three-card feature grids, Inter font, centered heroes on dark mesh. The **Design Skill Pack** breaks that by encoding 20+ distinct design philosophies into **structured, opinionated skills** that agents follow rigorously.
+AI agents default to the same tired patterns — purple gradients, three-card feature grids, Inter font, centered heroes on dark mesh. This pack breaks that by encoding **23 distinct design philosophies** into rigorous, opinionated instructions that agents follow step by step.
 
-Each skill has:
-- **Anti-patterns** (what NOT to do)
-- **Design tokens** (colors, type, spacing, shadows)
-- **Layout archetypes** (bento, editorial, split-screen, cascade)
-- **Motion guidelines** (physics curves, reduced-motion fallbacks)
-- **Quality gates** (accessibility, responsiveness, performance)
+---
+
+## Quick Start
+
+1. **Clone or copy** this repo into your project
+2. **Reference a skill** in your agent prompt:
+   ```
+   Read skills/premium.md and apply its design system to the landing page
+   ```
+3. **Or let the orchestrator choose**:
+   ```
+   Read skills/design-system-master.md and follow its selection matrix for my project
+   ```
+
+**Zero dependencies.** Just Markdown files and CSS tokens.
 
 ---
 
@@ -68,153 +73,122 @@ Each skill has:
 
 ---
 
-## Setup & Installation
+## How to Use with Any AI Agent
 
-### For Codex Users
-
-```bash
-# Install from marketplace
-codex plugin install design-skill-pack
-
-# Or from local path
-codex plugin install /path/to/design-skill-pack
+### Claude (Anthropic)
+```
+Attached is a design skill pack. Read skills/design-system-master.md and apply the recommended design direction to the landing page at src/app/landing/page.tsx.
 ```
 
-### For Plugin Development
+### GPT / ChatGPT
+```
+I have a design skill pack in my project at skills/. Read skills/premium.md and apply its design tokens and layout rules to my dashboard components.
+```
 
-```bash
-# Clone the repo
-git clone <repo-url>
-cd design-skill-pack
+### Copilot / Cursor
+```
+@workspace Please read skills/hallmark.md and do a redesign of the src/components/Hero.tsx component following its rules.
+```
 
-# Validate the plugin
-python3 .codex-plugin/scripts/validate_plugin.py .
-
-# Update cachebuster after changes
-python3 .codex-plugin/scripts/update_plugin_cachebuster.py .
+### Any Agent
+```
+I'm attaching a set of design skill files. Read the one called "hallmark" and follow its instructions to redesign my landing page.
 ```
 
 ---
 
-## Usage Examples
+## Common Workflows
 
-### Redesign a Landing Page with Hallmark
-
+### 1. Redesign an Existing Page
+Point the agent to `hallmark` with a redesign verb:
 ```
-@Design Skill Pack hallmark redesign src/app/landing
-```
-
-The agent will:
-1. Audit the current design
-2. Pick a theme from 20 named options
-3. Apply structural variety (macrostructure fitting your content)
-4. Implement tokens, layout, motion, and responsive behavior
-
-### Add Premium Polish to a Dashboard
-
-```
-@Design Skill Pack premium
-@Design Skill Pack beautiful-shadows
+Read skills/hallmark.md. Do a hallmark redesign of src/app/landing/page.tsx — audit the current design, pick a theme, and restructure the visual layer.
 ```
 
-The agent will:
-1. Apply Apple-inspired token system
-2. Upgrade all card/panel shadows to layered beautiful-shadows
-3. Add premium easing curves
-4. Refine typography and spacing
-
-### Full Agency-Quality Redesign
-
+### 2. Add Premium Polish
+Layer utility skills on top of design system skills:
 ```
-@Design Skill Pack high-end-visual-design
-@Design Skill Pack staggered-word-reveal
-@Design Skill Pack animation-on-scroll
+Read skills/premium.md and skills/beautiful-shadows.md. Apply premium tokens and layered shadows to all cards, KPIs, and panels.
 ```
 
-The agent will:
-1. Apply double-bezel nested architecture
-2. Add fluid island nav with staggered reveals
-3. Implement magnetic button physics
-4. Add scroll interpolation with custom cubic-bezier
-
-### Let the Master Decide
-
+### 3. Build a Landing Page from Scratch
+Let the orchestrator choose:
 ```
-@Design Skill Pack design-system-master
+Read skills/design-system-master.md. Follow its selection matrix for my SaaS landing page and apply the recommended skill.
 ```
 
-The orchestrator reads your project and picks the optimal skill combo.
+### 4. Design a Pricing Page
+```
+Read skills/pricing-page.md for structure guidance, then skills/premium.md for the visual system.
+```
+
+### 5. Audit Design Quality
+```
+Read skills/styleseed-design-review.md. Review my UI against its criteria and produce a ranked punch list.
+```
+
+---
+
+## Project Structure
+
+```
+design-skill-pack/
+├── skills/                    # Individual skill files (Markdown with YAML frontmatter)
+│   ├── design-system-master.md
+│   ├── hallmark.md              (placeholder — add the source)
+│   ├── premium.md               (placeholder — add the source)
+│   ├── beautiful-shadows.md     (placeholder — add the source)
+│   └── ... (more skills)
+├── docs/
+│   ├── SKILL-CATALOG.md       # Full catalog with descriptions and references
+│   ├── ARCHITECTURE.md        # Skill structure and format specification
+│   ├── CONTRIBUTING.md        # How to add new skills
+│   └── guides/                # Usage tutorials
+├── scripts/validate.py        # Validation script (Python, no deps)
+├── AGENTS.md                  # Instructions for AI agents using this pack
+├── README.md                  # This file
+└── LICENSE                    # MIT
+```
 
 ---
 
 ## Design System Philosophy
 
-Each skill in this pack follows a **token-first** approach:
+Every skill follows the same structure:
 
-```css
-:root {
-  /* Design tokens defined by the skill */
-  --surface-0: #...;
-  --ink-900: #...;
-  --accent: #...;
-  --radius-md: ...;
-  --shadow-md: ...;
-  --ease-out: cubic-bezier(...);
-}
+```
+1. Design tokens  →  CSS custom properties
+2. Anti-patterns  →  What to avoid (specific banned values)
+3. Layout         →  Structural archetypes with mobile collapse
+4. Components     →  Anatomy, states, variants
+5. Motion         →  Physics-based curves, reduced-motion fallbacks
+6. Quality gates  →  Testable checklist for code review
 ```
 
-Tokens are followed by **component architecture** (layout, spacing, typography), then **motion**, then **quality gates**.
-
-### Anti-Patterns (Common Across All Skills)
+### Universal Anti-Patterns
 
 | Anti-Pattern | Why It's Banned |
 |-------------|----------------|
-| `Inter`, `Roboto`, `Arial` fonts | LLM default, overused |
+| `Inter`, `Roboto`, `Arial` fonts | AI agent default, overused |
 | `shadow-md`, `rgba(0,0,0,0.3)` | Harsh, template-like |
 | `linear`, `ease-in-out` transitions | Robotic, not organic |
-| 3-column Bootstrap grids | Template layout |
+| Symmetrical 3-column grids | Template layout, no structural variety |
 | Purple gradients | AI-generated signal |
-| Generic Lucide/FontAwesome icons | Thick-stroked, heavy |
+| Generic thick-stroked icons | Heavy, unrefined |
 
 ---
 
-## Architecture
+## Adding Skills
 
-```
-design-skill-pack/
-├── .codex-plugin/
-│   └── plugin.json           # Plugin manifest (name, version, skills path)
-├── skills/                    # Individual skill files (Markdown)
-│   ├── design-system-master.md
-│   ├── amazon-ad-console-redesign.md
-│   └── ... (more skills to add)
-├── docs/
-│   ├── SKILL-CATALOG.md       # Full catalog with descriptions
-│   ├── ARCHITECTURE.md        # Plugin architecture deep-dive
-│   ├── CONTRIBUTING.md        # How to contribute skills
-│   └── guides/                # Usage tutorials
-├── examples/                  # Example implementations
-├── scripts/                   # Utility scripts
-├── AGENTS.md                  # Instructions for Codex agents
-└── README.md                  # This file
-```
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for the full guide. Short version:
 
----
-
-## Contributing
-
-See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for detailed guidelines.
-
-Short version:
-1. Create `skills/<your-skill>.md` with frontmatter
+1. Create `skills/<your-skill>.md` with YAML frontmatter (`name`, `description`)
 2. Include: tokens, anti-patterns, layout archetypes, motion, quality gates
 3. Update the catalog
-4. Validate with `python3 scripts/validate.py`
+4. Validate: `python3 scripts/validate.py`
 
 ---
 
 ## License
 
 MIT — use freely, attribute appreciated.
-
-Built for [Codex](https://github.com/openai/codex) — the open-source AI coding agent.

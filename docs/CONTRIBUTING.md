@@ -8,7 +8,7 @@
 skills/your-skill-name.md
 ```
 
-With frontmatter:
+With YAML frontmatter:
 ```markdown
 ---
 name: your-skill-name
@@ -18,7 +18,7 @@ description: One-line description of what this skill does
 
 ### 2. Structure your content
 
-Every design skill should include:
+Every design skill should include these sections in order:
 
 ```markdown
 ## Design Tokens
@@ -28,24 +28,24 @@ Every design skill should include:
 
 ## Anti-Patterns
 - What to avoid
-- Specific banned values
+- Specific banned values (fonts, colors, shadows, layouts)
 
 ## Layout Archetypes
 - Pattern name + description
-- Mobile collapse behavior
+- Mobile collapse behavior (required: <768px)
 
 ## Component Rules
-- Anatomy, states, variants
-- Spacing, typography, color tokens
+- Anatomy, states (default, hover, focus-visible, active, disabled)
+- Spacing, typography, color tokens used
 
 ## Motion Guidelines
-- Entry/exit animations
-- Easing curves
+- Entry/exit animation specs
+- Easing curves (custom cubic-bezier, not linear/ease-in-out)
 - Reduced-motion fallback
 
 ## Quality Gates
 - [ ] Testable acceptance criteria
-- [ ] Accessibility checks
+- [ ] Accessibility checks (WCAG 2.2 AA)
 ```
 
 ### 3. Update the catalog
@@ -54,7 +54,7 @@ Add your skill to `docs/SKILL-CATALOG.md` with:
 - Name, type, description
 - Key features, tokens, fonts
 - Anti-patterns
-- Source reference
+- Source reference (if adapted from elsewhere)
 
 ### 4. Validate
 
@@ -62,35 +62,26 @@ Add your skill to `docs/SKILL-CATALOG.md` with:
 python3 scripts/validate.py
 ```
 
-### 5. Bump version
-
-Update `version` in `.codex-plugin/plugin.json` (semver).
-
-### 6. Update cachebuster
-
-```bash
-python3 .codex-plugin/scripts/update_plugin_cachebuster.py .
-```
-
 ## Skill Quality Standards
 
 | Criterion | Required |
 |-----------|----------|
-| YAML frontmatter with name + description | ✅ |
-| Anti-patterns section | ✅ |
-| Specific CSS tokens | ✅ |
-| Mobile responsive rules | ✅ |
-| Reduced-motion fallback | ✅ |
+| YAML frontmatter with `name` + `description` | ✅ |
+| Anti-patterns section with specific banned values | ✅ |
+| CSS custom property tokens | ✅ |
+| Mobile responsive rules (<768px collapse) | ✅ |
+| Reduced-motion fallback (`prefers-reduced-motion`) | ✅ |
 | Quality gate checklist | ✅ |
 | Implementation-ready examples | ✅ |
+| Agent-agnostic (no platform-specific references) | ✅ |
 
 ## Code Review Checklist
 
-- [ ] Skill has unique name (no conflicts)
-- [ ] No placeholder/todo content
-- [ ] Anti-patterns are specific (not generic)
-- [ ] Tokens use CSS custom properties
-- [ ] Mobile responsive behavior defined
+- [ ] Skill has unique `name` (no conflicts with existing skills)
+- [ ] No placeholder or TODO content
+- [ ] Anti-patterns are specific (not generic like "make it look good")
+- [ ] Tokens use CSS custom properties (`--var-name`)
+- [ ] Mobile responsive behavior explicitly defined
 - [ ] Reduced-motion alternatives provided
-- [ ] Plugin validates clean
-- [ ] Cachebuster updated
+- [ ] No platform-specific tooling references
+- [ ] Validation passes

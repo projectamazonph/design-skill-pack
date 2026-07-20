@@ -2,94 +2,114 @@
 
 ## Overview
 
-The Design Skill Pack is a Codex plugin that bundles 20+ individual design skills under a single plugin manifest. Each skill is a standalone Markdown file with YAML frontmatter containing executable design guidance.
+The Design Skill Pack is a portable collection of standalone Markdown files. Each file encodes a complete design system as **structured, opinionated instructions** that any AI agent can follow. There is no runtime, no dependencies, no special tooling — just Markdown.
 
 ```
 design-skill-pack/
-├── .codex-plugin/
-│   └── plugin.json          # Plugin manifest — tells Codex where skills live
 ├── skills/                   # Individual *.md skill files
 │   ├── design-system-master.md
 │   └── amazon-ad-console-redesign.md
 ├── docs/                     # Documentation
 │   ├── SKILL-CATALOG.md
 │   ├── ARCHITECTURE.md
-│   └── CONTRIBUTING.md
+│   ├── CONTRIBUTING.md
+│   └── guides/
+├── scripts/validate.py       # Validation (optional, Python 3)
 └── README.md                 # Entry point
 ```
 
-## Plugin Manifest
-
-`.codex-plugin/plugin.json` defines the plugin:
-
-```json
-{
-  "name": "design-skill-pack",
-  "version": "1.0.0",
-  "description": "20+ premium design skills bundled...",
-  "skills": "./skills/",
-  "interface": {
-    "displayName": "Design Skill Pack",
-    "shortDescription": "20+ premium design skills bundled",
-    "category": "Design",
-    "capabilities": ["design-system", "ui-ux", "frontend-design", "redesign", "animation", "typography", "color-tokens", "responsive-layout"]
-  }
-}
-```
-
-The `skills` field points to a directory; every `.md` file in that directory becomes an invocable skill.
-
 ## Skill File Format
 
-Each skill file must have:
+Every skill file must have YAML frontmatter:
 
 ```markdown
 ---
-name: <skill-name>              # Invocation slug (required)
-description: <one-liner>        # Shown in UI (required)
+name: <skill-name>              # Slug used to reference this skill (required)
+description: <one-liner>        # What this skill does (required)
 ---
-
-# Title
-
-...skill content...
 ```
 
-### Required Content for Design Skills
+### Required Sections
 
-1. **Design tokens** — CSS custom properties for colors, typography, spacing, shadows, motion
-2. **Anti-patterns** — What NOT to do (specific banned values/patterns)
-3. **Layout archetypes** — Structure patterns (bento, editorial, split, cascade, etc.)
-4. **Component rules** — Anatomy, states, variants for key components
-5. **Motion guidelines** — Animation specs, easing curves, reduced-motion fallbacks
-6. **Mobile responsive** — Collapse behavior below 768px
-7. **Quality gates** — Testable acceptance criteria
+A complete design skill must contain these sections in order:
+
+**1. Design Tokens**
+CSS custom properties defining the entire visual language:
+```css
+:root {
+  --surface-0: #...;
+  --ink-900: #...;
+  --accent: #...;
+  --font-display: '...', sans-serif;
+  --radius-md: 8px;
+  --shadow-md: ...;
+  --ease-out: cubic-bezier(...);
+}
+```
+
+**2. Anti-Patterns**
+Explicit list of what NOT to do — specific banned fonts, colors, shadows, layouts, and motion patterns.
+
+**3. Layout Archetypes**
+Structural patterns with mobile collapse behavior:
+- Asymmetrical Bento / Z-Axis Cascade / Editorial Split
+- Mobile: collapses to single-column below 768px
+
+**4. Component Rules**
+For each key component: anatomy, variants, required states (default, hover, focus-visible, active, disabled, loading, error), responsive behavior.
+
+**5. Motion Guidelines**
+- Entry/exit animation specs (duration, easing, stagger)
+- GPU-safe properties only (`transform`, `opacity`)
+- `prefers-reduced-motion` fallback
+
+**6. Quality Gates**
+Testable acceptance criteria as a checklist:
+- [ ] No banned fonts present
+- [ ] All transitions use custom cubic-bezier
+- [ ] Mobile layout collapses below 768px
+- [ ] Reduced motion respected
 
 ## Orchestrator Pattern
 
-The `design-system-master.md` skill acts as an **orchestrator** — it doesn't design itself, but reads project context and dispatches to the appropriate skill(s). Its selection matrix maps:
+`design-system-master.md` is a meta-skill. It doesn't design anything itself — it reads project context and dispatches to the appropriate skill(s) via a selection matrix:
 
-- Project type (SaaS, landing, portfolio, editorial, e-commerce, etc.)
-- Desired aesthetic (premium, editorial, minimalist, glass, etc.)
-- Primary + secondary skill recommendations
+| Project Type | Recommended Skill |
+|-------------|------------------|
+| SaaS / Dashboard | premium, beautiful-shadows |
+| Landing Page | hallmark or design-taste-frontend |
+| Agency Portfolio | high-end-visual-design |
+| Editorial / Blog | editorial or modern |
+| E-commerce | professional |
+| Full Redesign | redesign-existing-projects + hallmark |
 
 ## Execution Flow
 
 ```
-User Prompt → Codex loads plugin → Skill matched by name
-  → Agent reads SKILL.md → Follows workflow →
-  Applies tokens → Layout → Components → Motion → QA
+1. Agent reads the skill file (Markdown)
+2. Agent applies CSS tokens to :root
+3. Agent structures layout per archetype
+4. Agent builds components per rules
+5. Agent adds motion per guidelines
+6. Agent verifies against quality gates
 ```
 
-For the orchestrator:
-```
-User Prompt → Codex loads plugin → design-system-master matched
-  → Agent reads selection matrix → Picks optimal skill(s)
-  → Loads selected SKILL.md → Executes as above
-```
+That's it. No framework, no runtime, no plugin system required.
 
-## Performance Considerations
+## File Independence
 
-- Skill files are Markdown — minimal parsing overhead
-- No runtime dependencies — pure agent instruction
-- Cachebuster versioning for updates
-- Skills can reference each other across files
+Each skill file is **fully self-contained**. An agent can read a single file and execute it without needing any other file in the pack. This means you can:
+
+- Copy individual skills into other projects
+- Use skills offline
+- Share skills with other teams
+- Version skills independently
+
+## Validation
+
+The optional `scripts/validate.py` script checks:
+- YAML frontmatter has `name` and `description`
+- Skills directory has `.md` files
+- All required docs exist
+
+No package.json, no npm install, no dependencies.
