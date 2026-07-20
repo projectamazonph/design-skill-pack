@@ -1,0 +1,20 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Marketplace (personal config, not repo)
+.agents/
+
+# Temp
+tmp/
+temp/
